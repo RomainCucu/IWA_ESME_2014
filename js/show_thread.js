@@ -27,10 +27,47 @@ index.afficher_les_messages = function(array){
 	var htmlGlobalToAdd = "";
 	array=array.reverse();
 	for (var i = objet_des_messages.page_number*5; i<objet_des_messages.page_number*5+5; i++){
-		if(array[i])/** pour éviter d'afficher undefined*/
-			htmlGlobalToAdd+=  '<li class="list-group-item" style="height:50px;">'+array[i]+'</li></br>';
+		if(array[i]){
+		htmlGlobalToAdd+=  '<li class="list-group-item active" style="">'+index.chercher_auteur(array[i])+'</li>';
+		htmlGlobalToAdd+=  '<li class="list-group-item" style="height:50px;">'+index.chercher_balise(array[i])+'</li></br>';
+		}
+		else 
+			htmlGlobalToAdd+=  '<li class="list-group-item" style="height:50px;">pas de réponse</li></br>';
 	}
 	document.getElementById('messages_a_afficher').innerHTML = htmlGlobalToAdd;
+};
+/**
+analyse si une chaine contient [author][/author] et renvoie l'auteur sous forme de chaine
+*/
+index.chercher_auteur = function(str){
+	if(str.indexOf("[author]")!=(-1) && str.indexOf("[/author]")!=(-1)){
+		var author_name = str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"));
+		return "Nom de l'auteur: "+author_name;
+	}else return "guest";
+
+};
+/**
+renvoi la meme chaine en supprimant les balise author, et en remplacant les lien des video
+*/
+index.chercher_balise = function(str){
+	/** suppression des balises author*/
+	if(str.indexOf("[author]")!=(-1) && str.indexOf("[/author]")!=(-1)){
+		str = str.replace(str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"))," ");
+		str = str.replace("[author]"," ");
+		str = str.replace("[/author]"," ");
+	}
+	/** remplacement des balise video par un embed code*/
+	if(str.indexOf("[vid]")!=(-1) && str.indexOf("[/vid]")!=(-1)){
+		var lien_video_a_lire = str.substring(str.indexOf("[vid]")+5, str.indexOf("[/vid]"));
+		str = str.replace(lien_video_a_lire,'<a href='+lien_video_a_lire+' target="_blank">video</a>');		
+		str = str.replace("[vid]"," ");
+		str = str.replace("[/vid]"," ");
+	}if(str.indexOf("[img]")!=(-1) && str.indexOf("[/img]")!=(-1)){
+		//str = str.replace(str.substring(str.indexOf("[img]")+5, str.indexOf("[/img]"))," ");
+		str = str.replace("[img]"," ");
+		str = str.replace("[/img]"," ");
+	}
+	return str;
 };
 /**
 on afiche le pagination panel en bas
@@ -38,11 +75,20 @@ on afiche le pagination panel en bas
 index.afficher_pagination_panel =function(){
 	var htmlGlobalToAdd = "";	
 	for(var i=0;i<objet_des_messages.nombre_de_page;i++){
-		htmlGlobalToAdd+='<li><a href="#">'+(i+1)+'</a></li>';
+		if(objet_des_messages.page_number==i)
+			htmlGlobalToAdd+='<li class="active" onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
+		else
+			htmlGlobalToAdd+='<li class="" onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
 	}	
 	document.getElementById('pagination_panel').innerHTML =  '<li>'+htmlGlobalToAdd+'</li>';
 	
 };
+/**
+fonction qui redirige lorsque l'on clique sur un numero
+*/
+index.redirection_pagination_panel = function(nb){
+	window.location=('./show_thread.html?id='+data.id_thread_traiter+'&page_number='+nb);	
+}
 
 /*************************************************************************************/
 /*************************************************************************************/
@@ -54,7 +100,8 @@ BOUTON la partie poster un message
 index.post_message_btn =function(){
 	$( "#post_message_btn" ).click(function( event ) {
 		console.log("je clik");	
-		var message = document.getElementById('input_message').value;
+		var author = "[author]"+document.getElementById('input_author').value+"[/author]";
+		var message = author + document.getElementById('input_message').value;
 		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,message)
 		event.preventDefault();
 	});
