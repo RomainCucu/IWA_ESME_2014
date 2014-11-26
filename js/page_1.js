@@ -112,7 +112,7 @@ obj_traitement.display_liste_threads=function(data){
 	document.getElementById("show_threads_html").innerHTML="";
 	
 	data.forEach(function callback_display_threads(element, index, array){
-		document.getElementById("show_threads_html").innerHTML+="<div>Sujet de discussion n°" + index +": " +element+"</div>";
+		document.getElementById("show_threads_html").innerHTML+="<div>Sujet de discussion n°" + index +": " +"<a target='_blank' href='./html/show_thread.html?id="+element+"&page_number=1'>"+element+"</a></div>";
 	});
 
 };
