@@ -8,7 +8,7 @@ data.arguments_=""; // Par default : aucun arguments
 
 index.start=function(){
 	//setInterval(index.new_thread,1);
-	//index.get_threads();
+	index.get_threads();
 	//index.new_thread("hello");
 	//index.show_thread("1417020259481");
 	//index.reply_to_thread("1416997123900","kouo");
@@ -109,6 +109,12 @@ var getActionFromUrlResponse = function(str){
 
 obj_traitement.display_liste_threads=function(data){
 	console.log(data);
+	document.getElementById("show_threads_html").innerHTML="";
+	
+	data.forEach(function callback_display_threads(element, index, array){
+		document.getElementById("show_threads_html").innerHTML+="<div>Sujet de discussion n°" + index +": " +element+"</div>";
+	});
+
 };
 
 delete_all_threads=function(tab){
