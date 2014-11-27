@@ -36,7 +36,7 @@
 
 			<div class="container " style="padding-top:70px;">
 			<div class="row"><!-- affichage du sujet-->
-				<div class="col-md-offset-0 col-md-8" >
+				<div class="col-md-offset-0 col-md-8 " >
 					<!-- AFFICHAGE DU HEADER, TITRE NUMERO AUTHOR-->
 					 <h1>Thread: <span id="title_numero_du_thread"></span></h1>
 					 <p class="lead">by <span id="title_author" class="text-primary"></span></p>
@@ -66,7 +66,7 @@
 					<hr>
 					
 				</div><!-- div col md 8 -->
-				<div class="col-md-4">
+				<div class="col-md-4" id="myNav">
 					<!-- AFFICHAGE BOXE REPONDRE-->
 					<div class="well">
 					<h1 class="text-primary">Answer:</h1>
@@ -86,7 +86,8 @@
 					  <button id="post_message_btn" type="submit" class="btn btn-primary">Submit</button>
 					</form>
 					</div>
-				</div><!-- div col md 2 -->
+				</div><!-- div col md 4 -->
+				</div><!-- row -->
 
 			</div><!-- 2em container-->
 		</div><!-- container -->
@@ -105,4 +106,10 @@
     </div>
   </div>
 </div>
-
+<style>
+#myNav{
+position: fixed; /* to stop the div from scrolling */
+top: 70;          /* to fix the div at the top its containing element */
+right: 10;        /* to fix the div at the right of its containing element */
+}
+</style>
