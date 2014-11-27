@@ -9,6 +9,7 @@ data.arguments_=""; // Par default : aucun arguments
 index.start=function(){
 	//setInterval(index.new_thread,1);
 	index.get_threads();
+	index.btn_search_threads();
 	//index.new_thread("hello");
 	//index.show_thread("1417020259481");
 	//index.reply_to_thread("1416997123900","kouo");
@@ -60,6 +61,34 @@ index.delete_thread = function(id){
 	data.arguments_="&id="+id;
 	index.get(data,index.callback);
 };
+
+
+
+
+
+index.btn_search_threads = function(){
+	$( "#submit_recherche_threads" ).submit( function(event){
+		console.log("thek");
+		event.preventDefault();//à laisser
+		var input_user_search_thread = document.getElementById("input_search_thread").value;
+		if(("1417020259481".toLowerCase().indexOf(input_user_search_thread.toLowerCase())> -1) || similar("1417020259481".toLowerCase(),input_user_search_thread.toLowerCase())> 50){
+				alert("Find !");
+		}
+
+		//index.fill_data_register();		
+		//index.post(data, index.callback);//passage au router des données
+		//index.replace_content_by_animation_GIF_loader("btn_register_");//pour remplacer le bouton par un chargement
+	});
+};
+
+
+
+
+
+
+
+
+// Methode get
 
 index.get =  function (data, callback) {
     var xhr = new XMLHttpRequest();
@@ -129,4 +158,29 @@ delete_all_threads=function(tab){
 		index.delete_thread(tab[i])
 	}
 };
+
+
+
+function similar(a,b) {
+    var lengthA = a.length;
+    var lengthB = b.length;
+    var equivalency = 0;
+    var minLength = (a.length > b.length) ? b.length : a.length;    
+    var maxLength = (a.length < b.length) ? b.length : a.length;    
+    for(var i = 0; i < minLength; i++) {
+        if(a[i] == b[i]) {
+            equivalency++;
+        }
+    }
+    var weight = equivalency / maxLength;
+    return (weight * 100);
+};
+
+/*
+
+if((results[i].pseudo.toLowerCase().indexOf(search_name.toLowerCase())> -1) || similar(results[i].pseudo.toLowerCase(),search_name.toLowerCase())> 50)//pour voir si la chaine est contenu dans un pseudo
+								{
+									infos.liste_user_found.push(results[i].pseudo);
+								}
+*/
 
