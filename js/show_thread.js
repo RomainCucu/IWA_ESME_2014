@@ -11,14 +11,14 @@ contient les caractéristiques pour afficher les messages
 var objet_des_messages= {};
 objet_des_messages.page_number = parseInt($_GET('page_number'))-1;/** pour savoir à quel page on veut accéder*/
 objet_des_messages.messages_par_page = parseInt($_GET('messages_par_page'));/** nombre de messages afficher par page*/
-console.log(objet_des_messages.messages_par_page);
-
 /**
 fonction lancer au démarrage
 */
 index.start=function(){		
-	index.show_thread(data.id_thread_traiter);//pour récupérer tous les message du thread
-	index.post_message_btn();
+	index.show_thread(data.id_thread_traiter);/** pour récupérer tous les message du thread*/
+	index.btn_post_message();
+	index.btn_ajouter_video();
+	index.btn_ajouter_image();
 };
 /*************************************************************************************/
 /***************************AFFICHER LES MESSAGE***************************************/
@@ -80,7 +80,9 @@ index.chercher_balise = function(str){
 	if(str.indexOf("[vid]")!=(-1) && str.indexOf("[/vid]")!=(-1)){
 		var lien_video_a_lire = str.substring(str.indexOf("[vid]")+5, str.indexOf("[/vid]"));
 		lien_video_remplacement = lien_video_a_lire.replace("watch?v=", "v/");
-		str = str.replace(lien_video_a_lire,'<iframe src="'+lien_video_remplacement+'" height="360" width="640" allowfullscreen="" frameborder="0"></iframe>');
+		if(lien_video_remplacement.length>5)//si le lien est crédible
+			str = str.replace(lien_video_a_lire,'<iframe class="embed-responsive-item" src="'+lien_video_remplacement+'" height="50%" width="100%" allowfullscreen="" frameborder="0"></iframe>');
+		else str.replace(lien_video_a_lire," ");
 		//str = str.replace(lien_video_a_lire,'<a href='+lien_video_remplacement+' target="_blank">video</a>');		
 		str = str.replace("[vid]"," ");
 		str = str.replace("[/vid]"," ");
@@ -101,14 +103,31 @@ on afiche le pagination panel en bas
 */
 index.afficher_pagination_panel =function(){
 	var htmlGlobalToAdd = "";	
-	for(var i=0;i<objet_des_messages.nombre_de_page;i++){
-		if(objet_des_messages.page_number==i)
-			htmlGlobalToAdd+='<li class="active" onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
+	htmlGlobalToAdd=index.pagination_fleche_precedent(htmlGlobalToAdd);/** affichage bouton precedent*/
+	for(var i=0;i<objet_des_messages.nombre_de_page;i++){		
+		if(objet_des_messages.page_number==i)/** pour mettre en bleu sur la page que lon ait  ACTIVE*/
+			htmlGlobalToAdd+='<li class="active " onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
 		else
 			htmlGlobalToAdd+='<li class="" onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
-	}	
-	document.getElementById('pagination_panel').innerHTML =  '<li>'+htmlGlobalToAdd+'</li>';
-	
+	}
+	htmlGlobalToAdd=index.pagination_fleche_suivant(htmlGlobalToAdd);/** affichage bouton suivant*/
+	document.getElementById('pagination_panel').innerHTML =  '<li>'+htmlGlobalToAdd+'</li>';	
+};
+index.pagination_fleche_precedent = function (str){
+	if (objet_des_messages.page_number == 0){//si on est deja sur la premiere page, on peut pas faire precedent
+		str+='<li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>';		
+	}else{
+		str+='<li onclick="index.redirection_pagination_panel('+objet_des_messages.page_number+')"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>';		
+	}
+	return str;	
+};
+index.pagination_fleche_suivant = function(str){
+	if (objet_des_messages.page_number+1 == objet_des_messages.nombre_de_page){//si on est deja sur la derniere page, on peut pas faire suivant
+		 str+='<li class="disabled"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a>';
+	}else{
+		str+='<li onclick="index.redirection_pagination_panel('+(objet_des_messages.page_number+2)+')"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a>';
+	}
+	return str;
 };
 /**
 fonction qui redirige lorsque l'on clique sur un numero
@@ -124,14 +143,30 @@ index.redirection_pagination_panel = function(nb){
 /**
 BOUTON la partie poster un message
 */
-index.post_message_btn =function(){
-	$( "#post_message_btn" ).click(function( event ) {
+index.btn_post_message =function(){
+	document.getElementById("post_message_btn").onclick = function(event) {
 
 		var author = "[author]"+document.getElementById('input_author').value+"[/author]";
 		var message = author + document.getElementById('input_message').value;
 		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,message)
 		event.preventDefault();
-	});
+	};
+};
+index.btn_ajouter_video =function(){
+	document.getElementById("btn_ajout_video" ).onclick = function(event) {
+		var htmlGlobalToAdd = document.getElementById("input_message").value;
+		htmlGlobalToAdd+="[vid][/vid]";
+		document.getElementById("input_message").value = htmlGlobalToAdd;
+		event.preventDefault();
+	};
+};
+index.btn_ajouter_image =function(){
+	document.getElementById("btn_ajout_image").onclick = function(event) {
+		var htmlGlobalToAdd = document.getElementById("input_message").value;
+		htmlGlobalToAdd+="[img][/img]";
+		document.getElementById("input_message").value = htmlGlobalToAdd;
+		event.preventDefault();
+	};
 };
 /*************************************************************************************/
 /*************************************************************************************/
