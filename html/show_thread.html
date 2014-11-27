@@ -73,7 +73,7 @@
 
 			<div class="container-fluid " style="padding-top:70px;">
 			<div class="row"><!-- affichage du sujet-->
-				<div class="page-header col-md-offset-3 col-md-6" id="sujet_a_afficher">
+				<div class="page-header col-md-offset-3 col-md-6" id="sujet_a_afficher" style="background-color: rgba(193, 193, 199, 0.35);">
 					 <h2 id="numero_du_thread"></h2>
 				</div>
 			</div><!-- row -->
@@ -93,11 +93,12 @@
 					<form role="form" class="col-md-offset-3 col-md-6">
 					  <div class="form-group ">
 					    <label for="input_author">Author</label>
-					    <input type="text" class=" form-control" id="input_author" placeholder="Enter your name">
+					    <input maxlength="20" type="text" class=" form-control" id="input_author" placeholder="Enter your name" value="guest">
 					  </div>
 					  <div class="form-group">
 					    <label for="input_message">Message</label>
-					    <textarea class="form-control" rows="3" id="input_message" placeholder="Enter your message"></textarea>
+					    <textarea maxlength="500" class="form-control" rows="3" id="input_message" placeholder="Enter your message" onkeydown="document.getElementById('nombre_de_caract_restant').innerHTML='Il reste '+(500-this.value.length)+' caractères'"></textarea>
+					     <footer id="nombre_de_caract_restant">Il reste 500 caractères</footer>
 					  </div>					  
 					  <button id="post_message_btn" type="submit" class="btn btn-default">Submit</button>
 					</form>

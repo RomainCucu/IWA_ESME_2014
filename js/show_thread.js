@@ -84,6 +84,7 @@ index.chercher_balise = function(str){
 		str = str.replace("[img]"," ");
 		str = str.replace("[/img]"," ");
 	}
+	str=emoticons(str);
 	return str;
 };
 /*************************************************************************************/
@@ -119,8 +120,7 @@ index.redirection_pagination_panel = function(nb){
 BOUTON la partie poster un message
 */
 index.post_message_btn =function(){
-	$( "#post_message_btn" ).click(function( event ) {
-		console.log("je clik");	
+	$( "#post_message_btn" ).click(function( event ) {		
 		var author = "[author]"+document.getElementById('input_author').value+"[/author]";
 		var message = author + document.getElementById('input_message').value;
 		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,message)
@@ -209,4 +209,52 @@ function $_GET(key,default_) {
        var qs = regex.exec(window.location.href);
        if(qs == null) return default_; else return qs[1];
 };
+/**
+function qui retourne le text avec les emoticons
+*/
+function emoticons(text){
+    var url = "../emoticons/";
+    var emt = {
+       ":D"  : '03.gif',
+       ":d"  : '03.gif',
+       ":-d"  : '03.gif',
+       ":-D" : '03.gif',       
+       ":)"  : '01.gif',
+       ":-)" : '01.gif',       
+       ";)"  : '06.gif',
+       ";-)" : '06.gif',
+		";-(" : '07.gif',
+		";(" : '07.gif',
+		
+
+       ":("  : '02.gif',
+       ":-(" : '02.gif',
+       ":o"  : '05.gif',
+       ":O"  : '05.gif',
+       ":-O"  : '05.gif',
+       ":-o"  : '05.gif',
+       ":?"  : '25.gif',
+       ":s"  : '25.gif',
+       ":S"  : '25.gif',
+       ":-s"  : '25.gif',
+       ":-S"  : '25.gif',
+       "8-)" : '27.gif',
+		"8)" : '27.gif',
+
+       ":x"  : '28.gif',
+       ":X"  : '28.gif',
+       ":-X"  : '28.gif',
+       ":-x"  : '28.gif',
+       ":P"  : '11.gif',
+       ":p"  : '11.gif',
+       ":-P"  : '11.gif',
+       ":-p"  : '11.gif',
+    };
+
+    for (smile in emt){        
+        text   = text.replace(smile, '<img src="' + url + emt[smile] + '" class="emoticons" height="21" width="21"/>');
+    }
+
+    return (text);
+}
 
