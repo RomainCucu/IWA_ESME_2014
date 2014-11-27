@@ -31,7 +31,7 @@ index.afficher_le_sujet_du_thread = function(string){
 	var htmlGlobalToAdd="";
 	htmlGlobalToAdd+= "Thread number : "+data.id_thread_traiter;
 	htmlGlobalToAdd+="<h3>"+index.chercher_auteur(string)+"</h3>"
-	htmlGlobalToAdd+='<small>'+index.chercher_balise(string)+'</small>';
+	htmlGlobalToAdd+='<h3>Message: </h3><small>'+index.chercher_balise(string)+'</small>';
 	document.getElementById('numero_du_thread').innerHTML = htmlGlobalToAdd;
 	
 };
@@ -79,7 +79,9 @@ index.chercher_balise = function(str){
 	/** remplacement des balise video par un embed code*/
 	if(str.indexOf("[vid]")!=(-1) && str.indexOf("[/vid]")!=(-1)){
 		var lien_video_a_lire = str.substring(str.indexOf("[vid]")+5, str.indexOf("[/vid]"));
-		str = str.replace(lien_video_a_lire,'<a href='+lien_video_a_lire+' target="_blank">video</a>');		
+		lien_video_remplacement = lien_video_a_lire.replace("watch?v=", "v/");
+		str = str.replace(lien_video_a_lire,'<iframe src="'+lien_video_remplacement+'" height="360" width="640" allowfullscreen="" frameborder="0"></iframe>');
+		//str = str.replace(lien_video_a_lire,'<a href='+lien_video_remplacement+' target="_blank">video</a>');		
 		str = str.replace("[vid]"," ");
 		str = str.replace("[/vid]"," ");
 	}if(str.indexOf("[img]")!=(-1) && str.indexOf("[/img]")!=(-1)){
