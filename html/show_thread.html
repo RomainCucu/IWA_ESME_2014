@@ -71,58 +71,59 @@
 			</nav>	 
 
 
-			<div class="container-fluid " style="padding-top:70px;">
+			<div class="container " style="padding-top:70px;">
 			<div class="row"><!-- affichage du sujet-->
-				<div class="page-header col-md-offset-3 col-md-6" id="sujet_a_afficher" style="background-color: rgba(193, 193, 199, 0.35);border-radius: 10px;">
-					 <h2 id="numero_du_thread"></h2>
-				</div>
-			</div><!-- row -->
-
-			<div class="row"><!-- affichage des réponses-->
-				<div class="list-group col-md-offset-3 col-md-6" id="messages_a_afficher">
-
-				</div>
-			</div><!-- row  affichage de la pagination en dessous des messages-->
-			<div class="row"><!-- affichage de la pagination en dessous des messages-->
-				<div class="col-md-offset-3">
-				<nav >
-				  <ul class="pagination pagination-sm" id="pagination_panel">
-				  </ul>
-				</nav>
-				</div>
-				<div class="col-md-5 col-md-offset-3" style="padding:0">
+				<div class="col-md-offset-0 col-md-8" >
+					<!-- AFFICHAGE DU HEADER, TITRE NUMERO AUTHOR-->
+					 <h1>Thread: <span id="title_numero_du_thread"></span></h1>
+					 <p class="lead">by <span id="title_author" class="text-primary"></span></p>
+					 <hr>
+					 <h4>Message:</h4>
+					 <p id="title_message"></p>
+					 <hr>
+					<h1>Answers:</h1>
+					 <!-- AFFICHAGE DES MESSAGES-->
+					<div class="list-group" id="messages_a_afficher">
+					</div>
+					<!-- AFFICHAGE DE LA PAGINATION EN BAS-->
+					<nav >
+				  		<ul class="pagination pagination-sm pagination_panel" >
+				  		</ul>
+					</nav>
+					<!-- AFFICHAGE DU CHOIX DE NOMBRE DE MESSAGES PAR PAGE EN BAS-->
 					<h4 class="text-primary"><span class="label label-primary">Change number of messages per page:</span></h4>
-					<select class="form-control col-md-2" id="selecteur_nombre_de_messages_par_page" onchange="window.location=('./show_thread.html?id='+data.id_thread_traiter+'&page_number=1&messages_par_page='+this.value)">
-					  <option>nombre de messages par page</option>
+					<select class="form-control " id="" onchange="window.location=('./show_thread.html?id='+data.id_thread_traiter+'&page_number=1&messages_par_page='+this.value)" style="max-width:30%">
+					  <option>Messages per page</option>
 					  <option>1</option>
 					  <option>5</option>
 					  <option>10</option>
 					  <option>50</option>
 					  <option>100</option>
 					</select>
-				</div>
-			</div><!-- row -->
-		</br>
-			<div class="row" >
-				<div class="col-md-offset-3 col-md-6" style=" border-style: solid; border-width: 1px;border-color:grey;">
-					<h1>Answer:</h1>
+					<hr>
+					
+				</div><!-- div col md 8 -->
+				<div class="col-md-4">
+					<!-- AFFICHAGE BOXE REPONDRE-->
+					<div class="well">
+					<h1 class="text-primary">Answer:</h1>
 					<form role="form" class="">
 					  <div class="form-group ">
-					    <label for="input_author">Author:</label>
+					    <label for="input_author" class="text-primary">Author:</label>
 					    <input maxlength="20" type="text" class=" form-control" id="input_author" placeholder="Enter your name">
 					  </div>
 					  <div class="form-group">
-					    <label for="input_message">Message:</label>
-					    <button type="button" class="btn btn-default col-md-offset-1" id="btn_ajout_video">[vid]</button>
-					    <button type="button" class="btn btn-default col-md-offset-1" id="btn_ajout_image">[img]</button>
-
+					    <label for="input_message" class="text-primary">Message:</label>
+					    </br>
+					    <button type="button" class="btn btn-default btn-xs " id="btn_ajout_video">[vid]</button>
+					    <button type="button" class="btn btn-default btn-xs " id="btn_ajout_image">[img]</button>
 					    <textarea maxlength="500" class="form-control" rows="3" id="input_message" placeholder="Enter your message" onkeydown="document.getElementById('nombre_de_caract_restant').innerHTML='Il reste '+(500-this.value.length)+' caractères'"></textarea>
-					     <footer id="nombre_de_caract_restant">Il reste 500 caractères</footer>
+					     <footer id="nombre_de_caract_restant" class="text-primary">Il reste 500 caractères</footer>
 					  </div>					  
-					  <button id="post_message_btn" type="submit" class="btn btn-default">Submit</button>
+					  <button id="post_message_btn" type="submit" class="btn btn-primary">Submit</button>
 					</form>
-				</div>
-			</div><!-- row --> 
+					</div>
+				</div><!-- div col md 2 -->
 
 			</div><!-- 2em container-->
 		</div><!-- container -->

@@ -28,12 +28,9 @@ index.start=function(){
 on affiche le premier message du thread, cad le sujet, la question
 */
 index.afficher_le_sujet_du_thread = function(string){
-	var htmlGlobalToAdd="";
-	htmlGlobalToAdd+= "Thread number : "+data.id_thread_traiter;
-	htmlGlobalToAdd+="<h3>"+index.chercher_auteur(string)+"</h3>"
-	htmlGlobalToAdd+='<h3>Message: </h3><small>'+index.chercher_balise(string)+'</small>';
-	document.getElementById('numero_du_thread').innerHTML = htmlGlobalToAdd;
-	
+	document.getElementById('title_numero_du_thread').innerHTML = ""+data.id_thread_traiter;
+	document.getElementById('title_author').innerHTML = ""+index.chercher_auteur(string);
+	document.getElementById('title_message').innerHTML = ""+index.chercher_balise(string);
 };
 /**
 on affiche les messages du thread
@@ -46,7 +43,7 @@ index.afficher_les_messages = function(array){
 		
 		if(array[i] && i!=(array.length-1)){/** si le message existe et que ce n'est pas le premier message posté, cad la question*/
 			htmlGlobalToAdd+='<div class="panel panel-default">';
-			htmlGlobalToAdd+=  ' <div class="panel-heading"><h3 class="panel-title">'+index.chercher_auteur(array[i])+'</h3></div>';
+			htmlGlobalToAdd+=  ' <div class="panel-heading"><h3 class="panel-title">Published by :'+index.chercher_auteur(array[i])+'</h3></div>';
 			htmlGlobalToAdd+=  '<div class="panel-body" style="overflow:scroll;word-wrap: break-word;">'+index.chercher_balise(array[i])+'</div>';
 			htmlGlobalToAdd+='</div>';
 		}		
@@ -59,10 +56,10 @@ analyse si une chaine contient [author][/author] et renvoie l'auteur sous forme 
 index.chercher_auteur = function(str){
 	if(str.indexOf("[author]")!=(-1) && str.indexOf("[/author]")!=(-1)){
 		var author_name = str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"));
-		if(author_name.length>=1)	return "Published by : "+author_name;
-		else return "Published by : guest";/** si balise mais pas d'auteur*/
+		if(author_name.length>=1)	return ""+author_name;
+		else return "guest";/** si balise mais pas d'auteur*/
 	}else{
-		return "Published by : guest";
+		return "guest";
 	}
 
 };
@@ -111,7 +108,8 @@ index.afficher_pagination_panel =function(){
 			htmlGlobalToAdd+='<li class="" onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
 	}
 	htmlGlobalToAdd=index.pagination_fleche_suivant(htmlGlobalToAdd);/** affichage bouton suivant*/
-	document.getElementById('pagination_panel').innerHTML =  '<li>'+htmlGlobalToAdd+'</li>';	
+	for(i in document.getElementsByClassName('pagination_panel'))
+		document.getElementsByClassName('pagination_panel')[i].innerHTML =  '<li>'+htmlGlobalToAdd+'</li>';		
 };
 index.pagination_fleche_precedent = function (str){
 	if (objet_des_messages.page_number == 0){//si on est deja sur la premiere page, on peut pas faire precedent
@@ -145,10 +143,9 @@ BOUTON la partie poster un message
 */
 index.btn_post_message =function(){
 	document.getElementById("post_message_btn").onclick = function(event) {
-
 		var author = "[author]"+document.getElementById('input_author').value+"[/author]";
-		var message = author + document.getElementById('input_message').value;
-		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,message)
+		var message = document.getElementById('input_message').value;
+		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,""+author+message)
 		event.preventDefault();
 	};
 };
