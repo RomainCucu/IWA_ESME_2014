@@ -72,13 +72,18 @@
 
 
 			<div class="container-fluid " style="padding-top:70px;">
-			<div class="row">
-				<div class="list-group col-md-offset-3 col-md-6">
-				  <ul class="list-group" id="messages_a_afficher">
-				  </ul>
+			<div class="row"><!-- affichage du sujet-->
+				<div class="page-header col-md-offset-3 col-md-6" id="sujet_a_afficher">
+					 <h2 id="numero_du_thread"></h2>
 				</div>
 			</div><!-- row -->
-			<div class="row">
+
+			<div class="row"><!-- affichage des réponses-->
+				<div class="list-group col-md-offset-3 col-md-6" id="messages_a_afficher">
+
+				</div>
+			</div><!-- row  affichage de la pagination en dessous des messages-->
+			<div class="row"><!-- affichage de la pagination en dessous des messages-->
 				<nav class="col-md-offset-5">
 				  <ul class="pagination " id="pagination_panel">
 				  </ul>

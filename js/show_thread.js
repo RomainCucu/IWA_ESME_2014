@@ -5,8 +5,12 @@ data.id_log = "?id_log=serie_1_groupe_3";//
 data.arguments_="";
 data.id_thread_traiter=$_GET('id');
 
+/**
+contient les caractéristiques pour afficher les messages
+*/
 var objet_des_messages= {};
-objet_des_messages.page_number = $_GET('page_number')-1;	
+objet_des_messages.page_number = $_GET('page_number')-1;/** pour savoir à quel page on veut accéder*/
+objet_des_messages.messages_par_page = 5;/** nombre de messages afficher par page*/
 
 /**
 fonction lancer au démarrage
@@ -16,23 +20,36 @@ index.start=function(){
 	index.post_message_btn();
 };
 /*************************************************************************************/
+/***************************AFFICHER LES MESSAGE***************************************/
 /*************************************************************************************/
 /*************************************************************************************/
-/*************************************************************************************/
+/**
+on affiche le premier message du thread, cad le sujet, la question
+*/
+index.afficher_le_sujet_du_thread = function(string){
+	var htmlGlobalToAdd="";
+	htmlGlobalToAdd+= "Thread number : "+data.id_thread_traiter;
+	htmlGlobalToAdd+="<h3>"+index.chercher_auteur(string)+"</h3>"
+	htmlGlobalToAdd+='<small>'+index.chercher_balise(string)+'</small>';
+	document.getElementById('numero_du_thread').innerHTML = htmlGlobalToAdd;
+	
+};
 /**
 on affiche les messages du thread
 on en affiche que 5
 */
 index.afficher_les_messages = function(array){
-	var htmlGlobalToAdd = "";
-	array=array.reverse();
-	for (var i = objet_des_messages.page_number*5; i<objet_des_messages.page_number*5+5; i++){
-		if(array[i]){
-		htmlGlobalToAdd+=  '<li class="list-group-item active" style="">'+index.chercher_auteur(array[i])+'</li>';
-		htmlGlobalToAdd+=  '<li class="list-group-item" style="height:50px;">'+index.chercher_balise(array[i])+'</li></br>';
+	var htmlGlobalToAdd = "";/** string pour afficher les réponses*/
+	array=array.reverse();/** affichage tu plus récent au plus ancien*/
+	for (var i = objet_des_messages.page_number*objet_des_messages.messages_par_page; i<objet_des_messages.page_number*objet_des_messages.messages_par_page+objet_des_messages.messages_par_page; i++){
+		htmlGlobalToAdd+='<div class="panel panel-default">';
+		if(array[i] && i!=(array.length-1)){/** si le message existe et que ce n'est pas le premier message posté, cad la question*/
+			htmlGlobalToAdd+=  ' <div class="panel-heading"><h3 class="panel-title">'+index.chercher_auteur(array[i])+'</h3></div>';
+			htmlGlobalToAdd+=  '<div class="panel-body" style="overflow:scroll;word-wrap: break-word;">'+index.chercher_balise(array[i])+'</div>';
 		}
 		else 
 			htmlGlobalToAdd+=  '<li class="list-group-item" style="height:50px;">pas de réponse</li></br>';
+		htmlGlobalToAdd+='</div>';
 	}
 	document.getElementById('messages_a_afficher').innerHTML = htmlGlobalToAdd;
 };
@@ -42,8 +59,8 @@ analyse si une chaine contient [author][/author] et renvoie l'auteur sous forme 
 index.chercher_auteur = function(str){
 	if(str.indexOf("[author]")!=(-1) && str.indexOf("[/author]")!=(-1)){
 		var author_name = str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"));
-		return "Nom de l'auteur: "+author_name;
-	}else return "guest";
+		return "Published by : "+author_name;
+	}else return "Published by : guest";
 
 };
 /**
@@ -69,6 +86,10 @@ index.chercher_balise = function(str){
 	}
 	return str;
 };
+/*************************************************************************************/
+/********************************PAGINATION PANEL**************************************/
+/*************************************************************************************/
+/*************************************************************************************/
 /**
 on afiche le pagination panel en bas
 */
@@ -91,7 +112,7 @@ index.redirection_pagination_panel = function(nb){
 }
 
 /*************************************************************************************/
-/*************************************************************************************/
+/**********************************POSTER UN MESSAGE*****************************************/
 /*************************************************************************************/
 /*************************************************************************************/
 /**
@@ -146,9 +167,10 @@ index.callback = function () {
 		var r = JSON.parse(this.responseText);
 		if(getActionFromUrlResponse(this.responseURL) == "show_thread"){			
 			objet_des_messages.nombre_de_message=(r.thread.length);/** nombre de message = taille du tab recu*/
-			objet_des_messages.nombre_de_page=Math.ceil(r.thread.length/5);/** nombre de page = nombre de message/5*/	
-			index.afficher_les_messages(r.thread);//on afficher les messages
-			index.afficher_pagination_panel();//on affiche le 1,2,3....
+			objet_des_messages.nombre_de_page=Math.ceil(r.thread.length/objet_des_messages.messages_par_page);/** nombre de page = nombre de message/page*/	
+			index.afficher_le_sujet_du_thread(r.thread[0]);/** on envoie le premier message posté*/
+			index.afficher_les_messages(r.thread);/** on afficher les messages*/
+			index.afficher_pagination_panel();/** on affiche le 1,2,3....*/
 
 		}else if(getActionFromUrlResponse(this.responseURL) == "reply_to_thread"){
 			console.log(r);
