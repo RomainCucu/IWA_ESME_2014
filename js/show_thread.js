@@ -9,8 +9,9 @@ data.id_thread_traiter=$_GET('id');
 contient les caractéristiques pour afficher les messages
 */
 var objet_des_messages= {};
-objet_des_messages.page_number = $_GET('page_number')-1;/** pour savoir à quel page on veut accéder*/
-objet_des_messages.messages_par_page = 5;/** nombre de messages afficher par page*/
+objet_des_messages.page_number = parseInt($_GET('page_number'))-1;/** pour savoir à quel page on veut accéder*/
+objet_des_messages.messages_par_page = parseInt($_GET('messages_par_page'));/** nombre de messages afficher par page*/
+console.log(objet_des_messages.messages_par_page);
 
 /**
 fonction lancer au démarrage
@@ -59,8 +60,11 @@ analyse si une chaine contient [author][/author] et renvoie l'auteur sous forme 
 index.chercher_auteur = function(str){
 	if(str.indexOf("[author]")!=(-1) && str.indexOf("[/author]")!=(-1)){
 		var author_name = str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"));
-		return "Published by : "+author_name;
-	}else return "Published by : guest";
+		if(author_name.length>=1)	return "Published by : "+author_name;
+		else return "Published by : guest";/** si balise mais pas d'auteur*/
+	}else{
+		return "Published by : guest";
+	}
 
 };
 /**
@@ -109,7 +113,7 @@ index.afficher_pagination_panel =function(){
 fonction qui redirige lorsque l'on clique sur un numero
 */
 index.redirection_pagination_panel = function(nb){
-	window.location=('./show_thread.html?id='+data.id_thread_traiter+'&page_number='+nb);	
+	window.location=('./show_thread.html?id='+data.id_thread_traiter+'&page_number='+nb+'&messages_par_page='+objet_des_messages.messages_par_page);	
 }
 
 /*************************************************************************************/
@@ -120,7 +124,8 @@ index.redirection_pagination_panel = function(nb){
 BOUTON la partie poster un message
 */
 index.post_message_btn =function(){
-	$( "#post_message_btn" ).click(function( event ) {		
+	$( "#post_message_btn" ).click(function( event ) {
+
 		var author = "[author]"+document.getElementById('input_author').value+"[/author]";
 		var message = author + document.getElementById('input_message').value;
 		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,message)
@@ -171,10 +176,10 @@ index.callback = function () {
 			index.afficher_le_sujet_du_thread(r.thread[0]);/** on envoie le premier message posté*/
 			index.afficher_les_messages(r.thread);/** on afficher les messages*/
 			index.afficher_pagination_panel();/** on affiche le 1,2,3....*/
-
+			setTimeout(function(){$('#myModal').modal('hide');},1000);
 		}else if(getActionFromUrlResponse(this.responseURL) == "reply_to_thread"){
 			console.log(r);
-			window.location=('./show_thread.html?id='+data.id_thread_traiter+'&page_number=1');	
+			window.location=('./show_thread.html?id='+data.id_thread_traiter+'&page_number=1&messages_par_page='+objet_des_messages.messages_par_page);	
 		}			
  	}else if (this.readyState == 4 && this.status == 500) {
  		console.log("erreur");
@@ -182,8 +187,8 @@ index.callback = function () {
 };
 
 window.onload = function(){
+	$('#myModal').modal('show');
 	setTimeout(index.start,10);
-
 }
 
 
