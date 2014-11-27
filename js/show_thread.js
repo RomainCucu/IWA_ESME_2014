@@ -77,23 +77,46 @@ index.chercher_balise = function(str){
 		str = str.replace("[author]"," ");
 		str = str.replace("[/author]"," ");
 	}
-	/** remplacement des balise video par un embed code*/
+	str = index.chercher_balise_vid(str);
+	str = index.chercher_balise_img(str);
+	str = emoticons(str);
+	return str;
+};
+/**
+retourne le string en remplacant le contenu de [vid]
+*/
+index.chercher_balise_vid = function(str){
 	if(str.indexOf("[vid]")!=(-1) && str.indexOf("[/vid]")!=(-1)){
-		var lien_video_a_lire = str.substring(str.indexOf("[vid]")+5, str.indexOf("[/vid]"));
-		lien_video_remplacement = lien_video_a_lire.replace("watch?v=", "v/");
-		if(lien_video_remplacement.length>5)//si le lien est crédible
-			str = str.replace(lien_video_a_lire,'<iframe class="embed-responsive-item" src="'+lien_video_remplacement+'" height="50%" width="100%" allowfullscreen="" frameborder="0"></iframe>');
-		else str.replace(lien_video_a_lire," ");
-		//str = str.replace(lien_video_a_lire,'<a href='+lien_video_remplacement+' target="_blank">video</a>');		
+		var lien_video_a_lire = str.substring(str.indexOf("[vid]")+5, str.indexOf("[/vid]"));		
+		if(lien_video_a_lire.length>10){//si le lien est crédible
+			str = str.replace(lien_video_a_lire,'<iframe class="embed-responsive-item" src="'+lien_video_a_lire.replace("watch?v=", "v/")+'" height="50%" width="50%" allowfullscreen="" frameborder="0"></iframe>');
+		}else{
+			str.replace(lien_video_a_lire," ");
+		}	
 		str = str.replace("[vid]"," ");
 		str = str.replace("[/vid]"," ");
-	}if(str.indexOf("[img]")!=(-1) && str.indexOf("[/img]")!=(-1)){
-		//str = str.replace(str.substring(str.indexOf("[img]")+5, str.indexOf("[/img]"))," ");
+		return str;
+	}else{
+		return str;
+	}
+};
+/**
+retourne le string en remplacant le contenu de [img]
+*/
+index.chercher_balise_img = function(str){
+	if(str.indexOf("[img]")!=(-1) && str.indexOf("[/img]")!=(-1)){
+		var lien_image_a_afficher = str.substring(str.indexOf("[img]")+5, str.indexOf("[/img]"));
+		if(lien_image_a_afficher.length>10){
+			str = str.replace(lien_image_a_afficher,'<a  href="'+lien_image_a_afficher+'" TARGET="_new"><img src="'+lien_image_a_afficher+'" alt="image" style="width:25%;height:25%;"></a>');
+		}else{
+			str = str.replace(lien_image_a_afficher," ");
+		}
 		str = str.replace("[img]"," ");
 		str = str.replace("[/img]"," ");
+		return str;
+	}else{
+		return str;
 	}
-	str=emoticons(str);
-	return str;
 };
 /*************************************************************************************/
 /********************************PAGINATION PANEL**************************************/
