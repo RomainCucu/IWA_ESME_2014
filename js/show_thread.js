@@ -108,7 +108,8 @@ index.afficher_pagination_panel =function(){
 			htmlGlobalToAdd+='<li class="" onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
 	}
 	htmlGlobalToAdd=index.pagination_fleche_suivant(htmlGlobalToAdd);/** affichage bouton suivant*/
-	document.getElementById('pagination_panel').innerHTML =  '<li>'+htmlGlobalToAdd+'</li>';	
+	for(i in document.getElementsByClassName('pagination_panel'))
+		document.getElementsByClassName('pagination_panel')[i].innerHTML =  '<li>'+htmlGlobalToAdd+'</li>';		
 };
 index.pagination_fleche_precedent = function (str){
 	if (objet_des_messages.page_number == 0){//si on est deja sur la premiere page, on peut pas faire precedent
@@ -142,10 +143,9 @@ BOUTON la partie poster un message
 */
 index.btn_post_message =function(){
 	document.getElementById("post_message_btn").onclick = function(event) {
-
 		var author = "[author]"+document.getElementById('input_author').value+"[/author]";
-		var message = author + document.getElementById('input_message').value;
-		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,message)
+		var message = document.getElementById('input_message').value;
+		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,""+author+message)
 		event.preventDefault();
 	};
 };
