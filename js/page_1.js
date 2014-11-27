@@ -75,6 +75,7 @@ index.callback = function () {
 			//delete_all_threads(r.threads);
 			console.log(r);
 			obj_traitement.display_liste_threads(r.threads);
+			obj_traitement.display_top_rated_threads(r.threads);
 		}else if(getActionFromUrlResponse(this.responseURL) == "show_thread"){
 			console.log(r);
 		}else if(getActionFromUrlResponse(this.responseURL) == "new_thread"){
@@ -109,12 +110,18 @@ var getActionFromUrlResponse = function(str){
 
 obj_traitement.display_liste_threads=function(data){
 	console.log(data);
-	document.getElementById("show_threads_html").innerHTML="";
+	document.getElementById("all_threads").innerHTML="";
 	
 	data.forEach(function callback_display_threads(element, index, array){
-		document.getElementById("show_threads_html").innerHTML+="<div>Sujet de discussion n°" + index +": " +"<a target='_blank' href='./html/show_thread.html?id="+element+"&page_number=1&messages_par_page=5'>"+element+"</a></div>";
+		document.getElementById("all_threads").innerHTML+="<li><a target='_blank' href='./html/show_thread.html?id="+element+"&page_number=1&messages_par_page=5'>"+element+"</a></li>";
 	});
+};
 
+obj_traitement.display_top_rated_threads=function(data){
+	document.getElementById("caroussel1").innerHTML="";
+	document.getElementById("caroussel1").innerHTML="popopo";
+	document.getElementById("carousselGlobal1").innerHTML="";
+	document.getElementById("carousselGlobal1").innerHTML="<a target='_blank' href='./html/show_thread.html?id="+data[0]+"&page_number=1&messages_par_page=5'><img src=\"images/black.jpg\" alt=\"\" style=\"height:50%; width:100%;\"><div class=\"carousel-caption\"><h1 id=\"caroussel1\">"+data[0]+"</h1><p></p></div></a>";
 };
 
 delete_all_threads=function(tab){
