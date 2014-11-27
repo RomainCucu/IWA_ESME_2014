@@ -16,6 +16,10 @@ fonction lancer au démarrage
 */
 index.start=function(){		
 	index.show_thread(data.id_thread_traiter);/** pour récupérer tous les message du thread*/
+	/** pour récupéer les thread toutes les 10 sec*/
+	setInterval(function(){
+		index.show_thread(data.id_thread_traiter);
+	},10000);
 	index.btn_post_message();
 	index.btn_ajouter_video();
 	index.btn_ajouter_image();
@@ -25,9 +29,9 @@ index.start=function(){
 /*************************************************************************************/
 /*************************************************************************************/
 /**
-on affiche le premier message du thread, cad le sujet, la question
+on affiche le premier message du thread, cad le sujet, la question + lautor + le numero du thread
 */
-index.afficher_le_sujet_du_thread = function(string){
+index.afficher_le_header_du_thread = function(string){
 	document.getElementById('title_numero_du_thread').innerHTML = ""+data.id_thread_traiter;
 	document.getElementById('title_author').innerHTML = ""+index.chercher_auteur(string);
 	document.getElementById('title_message').innerHTML = ""+index.chercher_balise(string);
@@ -43,7 +47,7 @@ index.afficher_les_messages = function(array){
 		
 		if(array[i] && i!=(array.length-1)){/** si le message existe et que ce n'est pas le premier message posté, cad la question*/
 			htmlGlobalToAdd+='<div class="panel panel-default">';
-			htmlGlobalToAdd+=  ' <div class="panel-heading"><h3 class="panel-title">Published by :'+index.chercher_auteur(array[i])+'</h3></div>';
+			htmlGlobalToAdd+=  '<div class="panel-heading"><h3 class="panel-title">Published by: '+index.chercher_auteur(array[i])+'</h3></div>';
 			htmlGlobalToAdd+=  '<div class="panel-body" style="overflow:scroll;word-wrap: break-word;">'+index.chercher_balise(array[i])+'</div>';
 			htmlGlobalToAdd+='</div>';
 		}		
@@ -54,10 +58,10 @@ index.afficher_les_messages = function(array){
 analyse si une chaine contient [author][/author] et renvoie l'auteur sous forme de chaine
 */
 index.chercher_auteur = function(str){
-	if(str.indexOf("[author]")!=(-1) && str.indexOf("[/author]")!=(-1)){
-		var author_name = str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"));
-		if(author_name.length>=1)	return ""+author_name;
-		else return "guest";/** si balise mais pas d'auteur*/
+	if(str.indexOf("[author]")!=(-1) && str.indexOf("[/author]")!=(-1)){/** si y a les balise author*/
+		var author_name = str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"));/** onrecupere le str entre les 2 balises*/
+		if(author_name.length>=1)	return ""+author_name;/** si le nom de lauteur >= 1*/
+		else return "guest";
 	}else{
 		return "guest";
 	}
@@ -203,10 +207,10 @@ index.callback = function () {
 	//console.log(r);
 	if (this.readyState == 4 && this.status == 200) {
 		var r = JSON.parse(this.responseText);
-		if(getActionFromUrlResponse(this.responseURL) == "show_thread"){			
+		if(getActionFromUrlResponse(this.responseURL) == "show_thread" && objet_des_messages.nombre_de_message != r.thread.length){			
 			objet_des_messages.nombre_de_message=(r.thread.length);/** nombre de message = taille du tab recu*/
 			objet_des_messages.nombre_de_page=Math.ceil(r.thread.length/objet_des_messages.messages_par_page);/** nombre de page = nombre de message/page*/	
-			index.afficher_le_sujet_du_thread(r.thread[0]);/** on envoie le premier message posté*/
+			index.afficher_le_header_du_thread(r.thread[0]);/** on envoie le premier message posté*/
 			index.afficher_les_messages(r.thread);/** on afficher les messages*/
 			index.afficher_pagination_panel();/** on affiche le 1,2,3....*/
 			setTimeout(function(){$('#myModal').modal('hide');},1000);
