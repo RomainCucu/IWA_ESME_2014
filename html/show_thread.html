@@ -83,7 +83,7 @@
 					 <!-- AFFICHAGE DES MESSAGES-->
 					<div class="list-group" id="messages_a_afficher">
 					</div>
-					<!-- AFFICHAGE DE LA PAGINATION-->
+					<!-- AFFICHAGE DE LA PAGINATION EN BAS-->
 					<nav >
 				  		<ul class="pagination pagination-sm" id="pagination_panel">
 				  		</ul>
@@ -112,8 +112,8 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="input_message" class="text-primary">Message:</label>
-					    <button type="button" class="btn btn-default col-md-offset-1" id="btn_ajout_video">[vid]</button>
-					    <button type="button" class="btn btn-default col-md-offset-1" id="btn_ajout_image">[img]</button>
+					    <button type="button" class="btn btn-default btn-xs col-md-offset-1" id="btn_ajout_video">[vid]</button>
+					    <button type="button" class="btn btn-default btn-xs col-md-offset-1" id="btn_ajout_image">[img]</button>
 
 					    <textarea maxlength="500" class="form-control" rows="3" id="input_message" placeholder="Enter your message" onkeydown="document.getElementById('nombre_de_caract_restant').innerHTML='Il reste '+(500-this.value.length)+' caractères'"></textarea>
 					     <footer id="nombre_de_caract_restant" class="text-primary">Il reste 500 caractères</footer>
