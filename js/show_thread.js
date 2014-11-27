@@ -43,14 +43,13 @@ index.afficher_les_messages = function(array){
 	var htmlGlobalToAdd = "";/** string pour afficher les réponses*/
 	array=array.reverse();/** affichage tu plus récent au plus ancien*/
 	for (var i = objet_des_messages.page_number*objet_des_messages.messages_par_page; i<objet_des_messages.page_number*objet_des_messages.messages_par_page+objet_des_messages.messages_par_page; i++){
-		htmlGlobalToAdd+='<div class="panel panel-default">';
+		
 		if(array[i] && i!=(array.length-1)){/** si le message existe et que ce n'est pas le premier message posté, cad la question*/
+			htmlGlobalToAdd+='<div class="panel panel-default">';
 			htmlGlobalToAdd+=  ' <div class="panel-heading"><h3 class="panel-title">'+index.chercher_auteur(array[i])+'</h3></div>';
 			htmlGlobalToAdd+=  '<div class="panel-body" style="overflow:scroll;word-wrap: break-word;">'+index.chercher_balise(array[i])+'</div>';
-		}
-		else 
-			htmlGlobalToAdd+=  '<li class="list-group-item" style="height:50px;">pas de réponse</li></br>';
-		htmlGlobalToAdd+='</div>';
+			htmlGlobalToAdd+='</div>';
+		}		
 	}
 	document.getElementById('messages_a_afficher').innerHTML = htmlGlobalToAdd;
 };
