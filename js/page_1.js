@@ -142,6 +142,8 @@ obj_traitement.display_liste_threads=function(data){
 	document.getElementById("all_threads").innerHTML="";
 	
 	data.forEach(function callback_display_threads(element, index, array){
+
+		
 		document.getElementById("all_threads").innerHTML+="<li><a target='_blank' href='./html/show_thread.html?id="+element+"&page_number=1&messages_par_page=5'>"+element+"</a></li>";
 	});
 };
