@@ -316,8 +316,11 @@ function emoticons(text){
        ":-p"  : '11.gif',
     };
 
-    for (smile in emt){        
-        text   = text.replace(smile, '<img src="' + url + emt[smile] + '" class="emoticons" height="21" width="21"/>');
+    for (smile in emt){
+    	var tmp = emt[smile];
+    	smile = smile.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"); 
+    	regex = new RegExp(smile,'gi');
+        text   = text.replace(regex, '<img src="' + url + tmp + '" class="emoticons" height="21" width="21"/>');
     }
 
     return (text);
