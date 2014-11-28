@@ -150,7 +150,7 @@ obj_traitement.display_top_rated_threads=function(data){
 	document.getElementById("caroussel1").innerHTML="";
 	document.getElementById("caroussel1").innerHTML="popopo";
 	document.getElementById("carousselGlobal1").innerHTML="";
-	document.getElementById("carousselGlobal1").innerHTML="<a target='_blank' href='./html/show_thread.html?id="+data[0]+"&page_number=1&messages_par_page=5'><img src=\"images/black.jpg\" alt=\"\" style=\"height:50%; width:100%;\"><div class=\"carousel-caption\"><h1 id=\"caroussel1\">"+data[0]+"</h1><p></p></div></a>";
+	document.getElementById("carousselGlobal1").innerHTML="<a target='_blank' href='./html/show_thread.html?id="+data[0]+"&page_number=1&messages_par_page=5'><img src=\"images/lion.jpg\" alt=\"\" style=\"height:50%; width:100%;\"><div class=\"carousel-caption\"><h2 id=\"caroussel1\">"+data[0]+"</h2><p></p></div></a>";
 };
 
 delete_all_threads=function(tab){
