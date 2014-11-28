@@ -30,15 +30,48 @@
 
    	<div class="row">
    			<div id="sidebar-wrapper">
-   				<h2>Tous les Sujets <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></h2>
+   				
    				<ul class="sidebar-nav" id="all_threads">
+
             	</ul>
 			</div>
 						
-   			<div id="page-content-wrapper" style="margin-top:30px; padding-left:30px;">
-   				<div class="container">
-						<div class="col-md-6"> <!--COLONNE GLOBALE 1-->
-							<div class="row">
+   			<div id="page-content-wrapper">
+   				<div class="container-fluid">
+   					<div class="row">
+
+	
+								 	<div class="well alert-success col-md-4 col-md-offset-3">
+								        <h4>Threads Search</h4>
+								           
+								           	<form id="submit_recherche_threads" role="form">
+								           		<div class="input-group">
+								               <input type="text" class="form-control" id="input_search_thread" required>
+								                <span class="input-group-btn">
+								           			<button class="btn btn-default" type="submit">
+								        				<span class="glyphicon glyphicon-search"></span>
+								                	</button>
+								                </span>
+								                </div>
+								            </form>
+								          	
+								    </div>
+								    <div class="well alert-info col-md-4 col-md-offset-1">
+								        <h4>Authors Search</h4>
+								        <form id="submit_recherche_authors" role="form">
+								           <div class="input-group">
+								               <input type="text" class="form-control" required>
+								                <span class="input-group-btn">
+								           			<button class="btn btn-default" type="submit">
+								        				<span class="glyphicon glyphicon-search"></span>
+								                	</button>
+								                </span>
+								          	</div>
+								          </form>
+								    </div>
+
+   					</div>
+   						<div class="row">
 							 <div class="col-md-12 jumbotron"  >
 							 	<div class="row">
 							 		<div class="col-md-12">
@@ -95,7 +128,10 @@
 								 </div>
 							 </div>
 							</div>
-
+   					
+   					<div class="row">
+						<div class="col-md-6"> <!--COLONNE GLOBALE 1-->
+							
 							<div class="row">
 								<div class="col-md-12">
 									<div class="panel panel-info">
@@ -114,58 +150,8 @@
 									</div>
 								</div>
 							</div>
-					
-
 						</div>
-
-						<div class="col-md-6"> <!--COLONNE GLOBALE 2-->
-						<div class="row">
-							<div class="col-md-8 col-md-offset-2">
-							 	<div class="well alert-success">
-							        <h4>Threads Search</h4>
-							           
-							           	<form id="submit_recherche_threads" role="form">
-							           		<div class="input-group">
-							               <input type="text" class="form-control" id="input_search_thread" required>
-							                <span class="input-group-btn">
-							           			<button class="btn btn-default" type="submit">
-							        				<span class="glyphicon glyphicon-search"></span>
-							                	</button>
-							                </span>
-							                </div>
-							            </form>
-							          	
-							    </div>
-							    <div class="well alert-info">
-							        <h4>Authors Search</h4>
-							           <div class="input-group">
-							               <input type="text" class="form-control">
-							                <span class="input-group-btn">
-							           			<button class="btn btn-default" type="button">
-							        				<span class="glyphicon glyphicon-search"></span>
-							                	</button>
-							                </span>
-							          	</div>
-							    </div>
-
-							 </div>
-						</div>
-						<div class="row">
-							<div class="row">
-							 	<div class="col-md-6 col-md-offset-6">
-									<h2>Tous les Sujets <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></h2>
-								</div>
-							</div>
-							<div class="col-md-6 col-md-offset-6 sidebar">
-								<div style="height: 50%; overflow:auto" class="well">
-									<ul class="nav nav-sidebar" id="all_threads">
-							            
-							        </ul>
-								</div> 
-							</div>
-						</div>
-
-						</div>
+					</div>
 			</div>
 		</div>
 	</div>
