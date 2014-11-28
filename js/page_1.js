@@ -140,10 +140,12 @@ var getActionFromUrlResponse = function(str){
 obj_traitement.display_liste_threads=function(data){
 	console.log(data);
 	document.getElementById("all_threads").innerHTML="";
-	
+                
+	document.getElementById("all_threads").innerHTML="<li class=\"sidebar-brand\">Tous les Sujets <span class=\"glyphicon glyphicon-pushpin\" aria-hidden=\"true\"></span></li>";
+
 	data.forEach(function callback_display_threads(element, index, array){
 
-		
+
 		document.getElementById("all_threads").innerHTML+="<li><a target='_blank' href='./html/show_thread.html?id="+element+"&page_number=1&messages_par_page=5'>"+element+"</a></li>";
 	});
 };
