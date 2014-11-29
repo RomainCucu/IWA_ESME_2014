@@ -32,7 +32,7 @@ index.start=function(){
 on affiche le premier message du thread, cad le sujet, la question + lautor + le numero du thread
 */
 index.afficher_le_header_du_thread = function(string){
-	document.getElementById('title_numero_du_thread').innerHTML = ""+data.id_thread_traiter;
+	document.getElementById('title_numero_du_thread').innerHTML = ""+  date_d_m_y_h_m(data.id_thread_traiter);
 	document.getElementById('title_author').innerHTML = ""+index.chercher_auteur(string);
 	document.getElementById('title_message').innerHTML = ""+index.chercher_balise(string);
 };
@@ -273,6 +273,12 @@ function $_GET(key,default_) {
        var regex = new RegExp("[\\?&]"+key+"=([^&#]*)");
        var qs = regex.exec(window.location.href);
        if(qs == null) return default_; else return qs[1];
+};
+
+ date_d_m_y_h_m = function(date_str){
+ 	date_str = parseInt(date_str);
+	date_str = new Date(date_str);
+	return ""+date_str.getUTCDate()+"/"+(date_str.getUTCMonth()+1)+"/"+date_str.getUTCFullYear()+" at "+date_str.getHours()+":"+date_str.getMinutes()+":"+date_str.getSeconds();
 };
 /**
 function qui retourne le text avec les emoticons

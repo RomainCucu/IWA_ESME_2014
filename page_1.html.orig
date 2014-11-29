@@ -68,8 +68,13 @@
 
 <div class="row" style="padding-top:50px"> <!-- row global -->
 
+<<<<<<< HEAD
+<div class="row">
+   	<div class="row">
+=======
 
 
+>>>>>>> 08213757273aa5f7ad128c8daee80ad7f22b4e1c
    			<div id="sidebar-wrapper">
    				
    				<ul class="sidebar-nav" id="all_threads">
