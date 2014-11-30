@@ -38,12 +38,12 @@ index.btn_search_threads = function(){
 
 
 index.btn_new_thread=function(){
-	document.getElementById("send_thread").onclick = function(event) {
-		document.getElementById("send_thread").disabled=true;//pour eviter d'appuyer plusieurs fois, estétique
+	document.getElementById("send_thread").onclick = function(event) {		
 		event.preventDefault();
 		var text_new_thread=document.getElementById("inputText").value;
 		var author_new_thread=document.getElementById("inputAuthor").value;
 		if(text_new_thread!=""){
+			document.getElementById("send_thread").disabled=true;//pour eviter d'appuyer plusieurs fois, estétique
 			if(author_new_thread!= ""){				
 				index.new_thread(text_new_thread, author_new_thread);
 			} else index.new_thread(text_new_thread, "guest");
@@ -153,7 +153,7 @@ obj_traitement.display_liste_threads=function(data){
 	data.reverse().forEach(function callback_display_threads(element, index, array){
 		var string="";
 		string+="<li><a target='_blank' href='./html/show_thread.html?id="+element+"&page_number=1&messages_par_page=5'>"+date_d_m_y_h_m(element)+"<span class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span></a>";
-		string+="<a onclick='index.delete_thread("+element+")' id=\""+element+"\" class=\"delete_thread_"+element+"\"+ target='_blank' href='#' style=\"color:orange\">Delete<span class=\"glyphicon glyphicon-remove delete_thread_"+element+"\"></span></a></li><li><hr></li>;";
+		string+="<a onclick='index.delete_thread("+element+")' id=\""+element+"\" class=\"delete_thread_"+element+"\"+ target='_blank' href='#' style=\"color:orange\">Delete<span class=\"glyphicon glyphicon-remove delete_thread_"+element+"\"></span></a></li><li><hr></li>";
 		document.getElementById("all_threads").innerHTML+=string;
 		
 	});
@@ -175,13 +175,13 @@ top3array.sort(compare);
 top3array.reverse();
 if(top3array[0]){
 	document.getElementById("lien_carousel_1").href = "./html/show_thread.html?id="+top3array[0].id+"&page_number=1&messages_par_page=5";
-	document.getElementById("number_of_messages").innerText = ""+top3array[0].thread.length+" messages !"
+	document.getElementById("number_of_messages").innerText = ""+top3array[0].thread.length+" messages !";
 }if(top3array[1]){
 	document.getElementById("lien_carousel_2").href = "./html/show_thread.html?id="+top3array[1].id+"&page_number=1&messages_par_page=5";
-	document.getElementById("number_of_messages2").innerText = ""+top3array[1].thread.length+" messages !"
+	document.getElementById("number_of_messages2").innerText = ""+top3array[1].thread.length+" messages !";
 }if(top3array[2]){
 	document.getElementById("lien_carousel_3").href = "./html/show_thread.html?id="+top3array[2].id+"&page_number=1&messages_par_page=5";
-	document.getElementById("number_of_messages3").innerText = ""+top3array[2].thread.length+" messages !"
+	document.getElementById("number_of_messages3").innerText = ""+top3array[2].thread.length+" messages !";
 }return;
 };
 
