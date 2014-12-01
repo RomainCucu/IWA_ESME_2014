@@ -12,8 +12,12 @@ var objet_des_messages= {};
 objet_des_messages.page_number = parseInt($_GET('page_number'))-1;/** pour savoir à quel page on veut accéder*/
 objet_des_messages.messages_par_page = parseInt($_GET('messages_par_page'));/** nombre de messages afficher par page*/
 /**
-fonction lancer au démarrage
+fonction lancees au démarrage
 */
+window.onload = function(){	
+	$('#myModal').modal('show');
+	setTimeout(index.start,10);
+}
 index.start=function(){		
 	index.show_thread(data.id_thread_traiter);/** pour récupérer tous les message du thread*/
 	/** pour récupéer les thread toutes les 10 sec*/
@@ -101,7 +105,7 @@ index.chercher_balise_vid = function(str){
 	if(str.indexOf("[vid]")!=(-1) && str.indexOf("[/vid]")!=(-1)){
 		var lien_video_a_lire = str.substring(str.indexOf("[vid]")+5, str.indexOf("[/vid]"));		
 		if(lien_video_a_lire.length>10){//si le lien est crédible
-			str = str.replace(lien_video_a_lire,'<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="'+lien_video_a_lire.replace("watch?v=", "v/")+'" frameborder="0" "></iframe></div>');
+			str = str.replace(lien_video_a_lire,'<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="'+lien_video_a_lire.replace("watch?v=", "v/")+'" frameborder="0" allowfullscreen "></iframe></div>');
 		}else{
 			str.replace(lien_video_a_lire," ");
 		}	
@@ -273,6 +277,7 @@ index.callback = function () {
 			index.afficher_les_messages(r.thread);/** on afficher les messages*/
 			index.afficher_pagination_panel();/** on affiche le 1,2,3....*/
 			setTimeout(function(){$('#myModal').modal('hide');},1000);
+			snow.init(50);
 		}else if(getActionFromUrlResponse(this.responseURL) == "reply_to_thread"){
 			console.log(r);
 			window.location=('./show_thread.html?id='+data.id_thread_traiter+'&page_number=1&messages_par_page='+objet_des_messages.messages_par_page);	
@@ -282,11 +287,7 @@ index.callback = function () {
  	}
 };
 
-window.onload = function(){
-	snow.init(50);
-	$('#myModal').modal('show');
-	setTimeout(index.start,10);
-}
+
 
 
 /**

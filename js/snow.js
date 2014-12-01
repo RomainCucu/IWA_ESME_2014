@@ -14,8 +14,7 @@ var snow = {
 	WIDTH : 0,
 	HEIGHT : 0,
 
-	init : function(nb){
-		nb=50;
+	init : function(nb){		
 		var o = this,
 			frag = document.createDocumentFragment();
 		o.getSize();
@@ -43,6 +42,7 @@ var snow = {
 
 			frag.appendChild(flake.html);
 			o.flakes.push(flake);
+
 		}
 
 		document.body.appendChild(frag);
@@ -87,3 +87,4 @@ var snow = {
 	}
 
 };
+

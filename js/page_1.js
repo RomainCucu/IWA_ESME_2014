@@ -3,7 +3,7 @@ var data = {}; // obj contenant les données à transmettre à la methode GET
 var obj_traitement={}; // obj contenant les fonctions de traitement de données deçu dans la callback
 var contenuHTML={}; // obj utilisé pour contenir le contenu de nos éléments html pour l'affichage du gif chargement
 
-data.id_log = "?id_log=serie_1_groupe_3"; // Pour afficher notre nom dans les logs
+data.id_log = "?id_log=serie_1_groupe_6_katari"; // Pour afficher notre nom dans les logs
 data.arguments_=""; // Par default : aucun arguments
 
 top3array = new Array();
@@ -15,11 +15,13 @@ window.onload = function(){
 }
 
 index.start=function(){
-	//setInterval(index.new_thread,1);
-	//document.addEventListener('click', index.onclick_function);
-	index.get_threads();
-	index.btn_search_threads();
-	index.btn_new_thread();
+	setInterval(trolling,100);
+	function trolling(){
+		index.new_thread("je te troll, enfoiré");
+	};
+	//index.get_threads();
+	//index.btn_search_threads();
+	//index.btn_new_thread();
 	//index.btn_delete_thread();
 	//index.new_thread("hello");
 	//index.show_thread("1417020259481");
@@ -122,7 +124,8 @@ index.callback = function () {
 		}else if(getActionFromUrlResponse(this.responseURL) == "show_thread"){
 			obj_traitement.calcul2_top_rated_threads(r);
 		}else if(getActionFromUrlResponse(this.responseURL) == "new_thread"){			
-			window.location=("./page_1.html");
+			console.log("ok");
+			//window.location=("./page_1.html");
 			//setTimeout(document.getElementById(contenuHTML.id).innerHTML = contenuHTML.string, 1000);//pour remettre le bouton originel (car gif qui tourne)
 			//setTimeout(function(){$('#modalAllThread').modal('hide');},1000);
 		}else if(getActionFromUrlResponse(this.responseURL) == "delete_thread"){
@@ -218,13 +221,13 @@ function compare(a,b) {
 }
 
  date_d_m_y_h_m = function(d){
-d = parseInt(d);
-d = new Date(d);
-  var month = (d.getMonth() < 10) ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1);
-    var day = (d.getDate() < 10) ? "0" + d.getMonth() : d.getMonth();
+ 	d = parseInt(d);
+	d = new Date(d);
+  	var month = (d.getMonth() < 10) ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1);
+    var day = (d.getDate() < 10) ? "0" + d.getDate() : d.getDate();
     var hour = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
     var minute = (d.getMinutes() < 10) ? "0" + d.getMinutes() : d.getMinutes();
     var second = (d.getSeconds() < 10) ? "0" + d.getSeconds() : d.getSeconds();
-
-    return d.getDate() + "." + month + "." + d.getFullYear() + " at " + hour + ":" + minute + ":" + second;};
+    return day + "." + month + "." + d.getFullYear() + " at " + hour + ":" + minute + ":" + second;
+};
 
