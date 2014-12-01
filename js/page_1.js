@@ -39,18 +39,18 @@ index.btn_search_threads = function(){
 
 
 index.btn_new_thread=function(){
-	document.getElementById("send_thread").onclick = function(event) {		
-		event.preventDefault();
+		document.getElementById("send_thread").onsubmit = function(event) {		
+		event.preventDefault();//à laisser		
 		var text_new_thread=document.getElementById("inputText").value;
-		var author_new_thread=document.getElementById("inputAuthor").value;
-		if(text_new_thread!=""){
-			document.getElementById("send_thread").disabled=true;//pour eviter d'appuyer plusieurs fois, estétique
-			if(author_new_thread!= ""){				
-				index.new_thread(text_new_thread, author_new_thread);
-			} else index.new_thread(text_new_thread, "guest");
-		}
+		var author_new_thread="[author]"+document.getElementById("inputAuthor").value+"[/author]";
+		var title_new_thread="[title]"+document.getElementById('inputTitle').value+"[/title]";
+		document.getElementById("send_thread").disabled=true;//pour eviter d'appuyer plusieurs fois, estétique	
+		var info = ""+text_new_thread+author_new_thread+title_new_thread;				
+		index.new_thread(info);			
 	}
+
 };
+
 
 // Methode get
 
@@ -66,10 +66,10 @@ index.get_threads=function(){
 /**
 *Créer un nouveau thread avec l'info du premier message
 */
-index.new_thread=function(info, author_message){
+index.new_thread=function(info){
 	info+="";
 	data.action_="new_thread";
-	data.arguments_="&info="+"[author]" + author_message + "[/author]" + info;
+	data.arguments_="&info="+info;
 	index.get(data,index.callback);
 };
 
@@ -121,12 +121,11 @@ index.callback = function () {
 			setTimeout(function(){$('#myModal').modal('hide');},1000);
 		}else if(getActionFromUrlResponse(this.responseURL) == "show_thread"){
 			obj_traitement.calcul2_top_rated_threads(r);
-		}else if(getActionFromUrlResponse(this.responseURL) == "new_thread"){
+		}else if(getActionFromUrlResponse(this.responseURL) == "new_thread"){			
 			window.location=("./page_1.html");
 			//setTimeout(document.getElementById(contenuHTML.id).innerHTML = contenuHTML.string, 1000);//pour remettre le bouton originel (car gif qui tourne)
 			//setTimeout(function(){$('#modalAllThread').modal('hide');},1000);
 		}else if(getActionFromUrlResponse(this.responseURL) == "delete_thread"){
-			console.log(r);
 			window.location=("./page_1.html");
 			//index.get_threads();
 			//setTimeout(function(){$('#myModal').modal('hide');},1000);

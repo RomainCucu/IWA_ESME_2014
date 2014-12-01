@@ -33,6 +33,7 @@ on affiche le premier message du thread, cad le sujet, la question + lautor + le
 */
 index.afficher_le_header_du_thread = function(string){
 	//string+="";
+	console.log(string);
 	document.getElementById('title_thread').innerHTML = "Title: "+ index.chercher_balise_title(string);
 	document.getElementById('date_thread').innerHTML = " Thread published: the "+  date_d_m_y_h_m(data.id_thread_traiter);
 	document.getElementById('title_author').innerHTML = ""+index.chercher_auteur(string);
