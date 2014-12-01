@@ -9,24 +9,21 @@ data.arguments_=""; // Par default : aucun arguments
 top3array = new Array();
 
 
+
 window.onload = function(){	
 	setTimeout(index.start,100);
 	snow.init(50);
 }
 
 index.start=function(){
+	/*window.setTimeout(function(){window.location.reload();},10000);
 	setInterval(trolling,100);
 	function trolling(){
 		index.new_thread("je te troll, enfoiré");
-	};
-	//index.get_threads();
-	//index.btn_search_threads();
-	//index.btn_new_thread();
-	//index.btn_delete_thread();
-	//index.new_thread("hello");
-	//index.show_thread("1417020259481");
-	//index.reply_to_thread("1416997123900","kouo");
-	//index.delete_thread("1416997123900");
+	};*/
+	index.get_threads();
+	index.btn_search_threads();
+	index.btn_new_thread();
 };
 
 index.btn_search_threads = function(){
@@ -119,19 +116,13 @@ index.callback = function () {
 		if(getActionFromUrlResponse(this.responseURL) == "get_threads"){
 			//delete_all_threads(r.threads);
 			obj_traitement.display_liste_threads(r.threads);
-			obj_traitement.calcul_top_rated_threads(r.threads);
-			setTimeout(function(){$('#myModal').modal('hide');},1000);
+			obj_traitement.calcul_top_rated_threads(r.threads);			
 		}else if(getActionFromUrlResponse(this.responseURL) == "show_thread"){
 			obj_traitement.calcul2_top_rated_threads(r);
-		}else if(getActionFromUrlResponse(this.responseURL) == "new_thread"){			
-			console.log("ok");
-			//window.location=("./page_1.html");
-			//setTimeout(document.getElementById(contenuHTML.id).innerHTML = contenuHTML.string, 1000);//pour remettre le bouton originel (car gif qui tourne)
-			//setTimeout(function(){$('#modalAllThread').modal('hide');},1000);
+		}else if(getActionFromUrlResponse(this.responseURL) == "new_thread"){						
+			window.location=("./page_1.html");
 		}else if(getActionFromUrlResponse(this.responseURL) == "delete_thread"){
 			window.location=("./page_1.html");
-			//index.get_threads();
-			//setTimeout(function(){$('#myModal').modal('hide');},1000);
 		}			
  	}else if (this.readyState == 4 && this.status == 500) {
  		console.log("erreur");
