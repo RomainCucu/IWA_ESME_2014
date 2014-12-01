@@ -154,7 +154,7 @@ obj_traitement.display_liste_threads=function(data){
 	data.reverse().forEach(function callback_display_threads(element, index, array){
 		var string="";
 		string+="<li><a target='_blank' href='./html/show_thread.html?id="+element+"&page_number=1&messages_par_page=5'>"+date_d_m_y_h_m(element)+"<span class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span></a>";
-		string+="<a onclick='index.delete_thread("+element+")' id=\""+element+"\" class=\"delete_thread_"+element+"\"+ target='_blank' href='#' style=\"color:red\">Delete<span class=\"glyphicon glyphicon-remove delete_thread_"+element+"\"></span></a></li><li><hr></li>";
+		string+="<a onclick='index.delete_thread("+element+")' id=\""+element+"\" class=\"delete_thread_"+element+"\"+ target='_blank' href='#' style=\"color:orange\">Delete<span class=\"glyphicon glyphicon-remove delete_thread_"+element+"\"></span></a></li><li><hr></li>";
 		document.getElementById("all_threads").innerHTML+=string;
 		
 	});

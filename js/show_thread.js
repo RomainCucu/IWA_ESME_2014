@@ -47,7 +47,7 @@ index.afficher_les_messages = function(array){
 		
 		if(array[i] && i!=(array.length-1)){/** si le message existe et que ce n'est pas le premier message posté, cad la question*/
 			htmlGlobalToAdd+='<div class="panel panel-default">';
-			htmlGlobalToAdd+=  '<div class="panel-heading"><h3 class="panel-title">Published by: '+index.chercher_auteur(array[i])+'</h3></div>';
+			htmlGlobalToAdd+=  '<div class="panel-heading"><h3 class="panel-title">Published by: '+index.chercher_auteur(array[i])+'</h3><h5>published the '+index.chercher_balise_date(array[i])+'</h5></div>';
 			htmlGlobalToAdd+=  '<div class="panel-body" style="overflow:scroll;word-wrap: break-word;">'+index.chercher_balise(array[i])+'</div>';
 			htmlGlobalToAdd+='</div>';
 		}		
@@ -76,6 +76,11 @@ index.chercher_balise = function(str){
 		str = str.replace(str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"))," ");
 		str = str.replace("[author]"," ");
 		str = str.replace("[/author]"," ");
+	}
+	if(str.indexOf("[date]")!=(-1) && str.indexOf("[/date]")!=(-1)){
+		str = str.replace(str.substring(str.indexOf("[date]")+6, str.indexOf("[/date]"))," ");
+		str = str.replace("[date]"," ");
+		str = str.replace("[/date]"," ");
 	}
 	str = index.chercher_balise_vid(str);
 	str = index.chercher_balise_img(str);
@@ -116,6 +121,17 @@ index.chercher_balise_img = function(str){
 		return str;
 	}else{
 		return str;
+	}
+};
+/**
+retourne string date
+*/
+index.chercher_balise_date = function(str){
+if(str.indexOf("[date]")!=(-1) && str.indexOf("[/date]")!=(-1)){
+		var date = str.substring(str.indexOf("[date]")+6, str.indexOf("[/date]"));				
+		return date_d_m_y_h_m(date);
+	}else{
+		return "undefined";
 	}
 };
 /*************************************************************************************/
@@ -172,6 +188,7 @@ index.btn_post_message =function(){
 	document.getElementById("post_message_btn").onclick = function(event) {
 		var author = "[author]"+document.getElementById('input_author').value+"[/author]";
 		var message = document.getElementById('input_message').value;
+		message += "[date]"+(new Date()).valueOf()+"[/date]";
 		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,""+author+message)
 		event.preventDefault();
 	};
@@ -276,10 +293,15 @@ function $_GET(key,default_) {
        if(qs == null) return default_; else return qs[1];
 };
 
- date_d_m_y_h_m = function(date_str){
- 	date_str = parseInt(date_str);
-	date_str = new Date(date_str);
-	return ""+date_str.getUTCDate()+"/"+(date_str.getUTCMonth()+1)+"/"+date_str.getUTCFullYear()+" at "+date_str.getHours()+":"+date_str.getMinutes()+":"+date_str.getSeconds();
+ date_d_m_y_h_m = function(d){
+ 	d = parseInt(d);
+	d = new Date(d);
+  	var month = (d.getMonth() < 10) ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1);
+    var day = (d.getDate() < 10) ? "0" + d.getMonth() : d.getMonth();
+    var hour = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
+    var minute = (d.getMinutes() < 10) ? "0" + d.getMinutes() : d.getMinutes();
+    var second = (d.getSeconds() < 10) ? "0" + d.getSeconds() : d.getSeconds();
+    return d.getDate() + "." + month + "." + d.getFullYear() + " at " + hour + ":" + minute + ":" + second;
 };
 /**
 function qui retourne le text avec les emoticons
