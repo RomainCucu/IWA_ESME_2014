@@ -7,7 +7,7 @@ var snow = {
 	minSpeed : 1,
 	color : "#fff",
 	char : "*",
-	maxSize : 20,
+	maxSize : 50,
 	minSize : 8,
 
 	flakes : [],

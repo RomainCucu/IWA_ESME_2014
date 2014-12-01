@@ -11,6 +11,7 @@ top3array = new Array();
 
 window.onload = function(){	
 	setTimeout(index.start,100);
+	snow.init(50);
 }
 
 index.start=function(){
