@@ -32,7 +32,9 @@ index.start=function(){
 on affiche le premier message du thread, cad le sujet, la question + lautor + le numero du thread
 */
 index.afficher_le_header_du_thread = function(string){
-	document.getElementById('title_numero_du_thread').innerHTML = ""+  date_d_m_y_h_m(data.id_thread_traiter);
+	//string+="";
+	document.getElementById('title_thread').innerHTML = "Title: "+ index.chercher_balise_title(string);
+	document.getElementById('date_thread').innerHTML = " Thread published: the "+  date_d_m_y_h_m(data.id_thread_traiter);
 	document.getElementById('title_author').innerHTML = ""+index.chercher_auteur(string);
 	document.getElementById('title_message').innerHTML = ""+index.chercher_balise(string);
 };
@@ -76,11 +78,16 @@ index.chercher_balise = function(str){
 		str = str.replace(str.substring(str.indexOf("[author]")+8, str.indexOf("[/author]"))," ");
 		str = str.replace("[author]"," ");
 		str = str.replace("[/author]"," ");
-	}
+	}/**suupression balise date*/
 	if(str.indexOf("[date]")!=(-1) && str.indexOf("[/date]")!=(-1)){
 		str = str.replace(str.substring(str.indexOf("[date]")+6, str.indexOf("[/date]"))," ");
 		str = str.replace("[date]"," ");
 		str = str.replace("[/date]"," ");
+	}/** suppression balise title*/
+	if(str.indexOf("[title]")!=(-1) && str.indexOf("[/title]")!=(-1)){
+		str = str.replace(str.substring(str.indexOf("[title]")+7, str.indexOf("[/title]"))," ");
+		str = str.replace("[title]"," ");
+		str = str.replace("[/title]"," ");
 	}
 	str = index.chercher_balise_vid(str);
 	str = index.chercher_balise_img(str);
@@ -134,6 +141,18 @@ if(str.indexOf("[date]")!=(-1) && str.indexOf("[/date]")!=(-1)){
 		return "undefined";
 	}
 };
+/**
+rtourne le string title
+*/
+index.chercher_balise_title = function(str){
+if(str.indexOf("[title]")!=(-1) && str.indexOf("[/title]")!=(-1)){
+		var title = str.substring(str.indexOf("[title]")+7, str.indexOf("[/title]"));				
+		return title;
+	}else{
+		return "undefined";
+	}
+};
+
 /*************************************************************************************/
 /********************************PAGINATION PANEL**************************************/
 /*************************************************************************************/
