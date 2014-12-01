@@ -14,12 +14,13 @@
 			background-color: black;
 			color:red;
 		}
-		.btn-primary{
+		.btn-primary, .btn-warning{
 			background-image: linear-gradient(to bottom,#FF0000 0,#FA5151 100%);
 			border-color:#FA5151;		
 		}
-		.btn-primary:hover{
+		.btn-primary:hover, .btn-warning:hover{
 			background-color:#FA5151;
+			 border-color: #FA5151;
 		}
 		textarea:focus,textarea.form-control:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
 		    border-color: #FA5151;
