@@ -1,26 +1,28 @@
-	
+		body{
+			background-color: rgba(245, 6, 6, 0.13);
+		}
 		.text-primary{
-			color:orange;
+			color:red;
 		}
 		.label-primary{
-			background-color:orange;
+			background-color:red;
 		}
 		.pagination>li>a, .pagination>li>span{
 			color:orange;
 		}
 		.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus{
 			background-color: black;
-			color:orange;
+			color:red;
 		}
 		.btn-primary{
-			background-image: linear-gradient(to bottom,#EF5D11 0,#FFA500 100%);
-			border-color:#FBB06F;		
+			background-image: linear-gradient(to bottom,#FF0000 0,#FA5151 100%);
+			border-color:#FA5151;		
 		}
 		.btn-primary:hover{
-			background-color:#FFA500;
+			background-color:#FA5151;
 		}
 		textarea:focus,textarea.form-control:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
-		    border-color: #FFA500;
-		    box-shadow: 0 1px 1px #FFA500 inset, 0 0 8px #FFA500;
+		    border-color: #FA5151;
+		    box-shadow: 0 1px 1px #FA5151 inset, 0 0 8px #FA5151;
 		    outline: 0 none;
 		}

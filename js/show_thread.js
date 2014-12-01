@@ -247,6 +247,7 @@ index.callback = function () {
 };
 
 window.onload = function(){
+	snow.init(50);
 	$('#myModal').modal('show');
 	setTimeout(index.start,10);
 }
