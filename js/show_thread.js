@@ -130,9 +130,9 @@ index.afficher_pagination_panel =function(){
 	htmlGlobalToAdd=index.pagination_fleche_precedent(htmlGlobalToAdd);/** affichage bouton precedent*/
 	for(var i=0;i<objet_des_messages.nombre_de_page;i++){		
 		if(objet_des_messages.page_number==i)/** pour mettre en bleu sur la page que lon ait  ACTIVE*/
-			htmlGlobalToAdd+='<li class="active " onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
+			htmlGlobalToAdd+='<li class="active" onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
 		else
-			htmlGlobalToAdd+='<li class="" onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
+			htmlGlobalToAdd+='<li onclick="index.redirection_pagination_panel('+(i+1)+')"><a href="#">'+(i+1)+'</a></li>';
 	}
 	htmlGlobalToAdd=index.pagination_fleche_suivant(htmlGlobalToAdd);/** affichage bouton suivant*/
 	for(i in document.getElementsByClassName('pagination_panel'))

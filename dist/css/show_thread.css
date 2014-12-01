@@ -1,0 +1,26 @@
+	
+		.text-primary{
+			color:orange;
+		}
+		.label-primary{
+			background-color:orange;
+		}
+		.pagination>li>a, .pagination>li>span{
+			color:orange;
+		}
+		.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus{
+			background-color: black;
+			color:orange;
+		}
+		.btn-primary{
+			background-image: linear-gradient(to bottom,#EF5D11 0,#FFA500 100%);
+			border-color:#FBB06F;		
+		}
+		.btn-primary:hover{
+			background-color:#FFA500;
+		}
+		textarea:focus,textarea.form-control:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+		    border-color: #FFA500;
+		    box-shadow: 0 1px 1px #FFA500 inset, 0 0 8px #FFA500;
+		    outline: 0 none;
+		}
