@@ -35,7 +35,7 @@ index.afficher_le_header_du_thread = function(string){
 	//string+="";
 	console.log(string);
 	document.getElementById('title_thread').innerHTML = "Title: "+ index.chercher_balise_title(string);
-	document.getElementById('date_thread').innerHTML = " Thread published: the "+  date_d_m_y_h_m(data.id_thread_traiter);
+	document.getElementById('date_thread').innerHTML = " Thread posted: the "+  date_d_m_y_h_m(data.id_thread_traiter);
 	document.getElementById('title_author').innerHTML = ""+index.chercher_auteur(string);
 	document.getElementById('title_message').innerHTML = ""+index.chercher_balise(string);
 };
@@ -50,7 +50,7 @@ index.afficher_les_messages = function(array){
 		
 		if(array[i] && i!=(array.length-1)){/** si le message existe et que ce n'est pas le premier message posté, cad la question*/
 			htmlGlobalToAdd+='<div class="panel panel-default">';
-			htmlGlobalToAdd+=  '<div class="panel-heading"><h3 class="panel-title">Published by: '+index.chercher_auteur(array[i])+'</h3><h5>published the '+index.chercher_balise_date(array[i])+'</h5></div>';
+			htmlGlobalToAdd+=  '<div class="panel-heading"><h3 class="panel-title">Published by: '+index.chercher_auteur(array[i])+'</h3><cite>published the '+index.chercher_balise_date(array[i])+'</cite></div>';
 			htmlGlobalToAdd+=  '<div class="panel-body" style="overflow:scroll;word-wrap: break-word;">'+index.chercher_balise(array[i])+'</div>';
 			htmlGlobalToAdd+='</div>';
 		}		
@@ -102,7 +102,7 @@ index.chercher_balise_vid = function(str){
 	if(str.indexOf("[vid]")!=(-1) && str.indexOf("[/vid]")!=(-1)){
 		var lien_video_a_lire = str.substring(str.indexOf("[vid]")+5, str.indexOf("[/vid]"));		
 		if(lien_video_a_lire.length>10){//si le lien est crédible
-			str = str.replace(lien_video_a_lire,'<iframe class="embed-responsive-item" src="'+lien_video_a_lire.replace("watch?v=", "v/")+'" height="50%" width="50%" allowfullscreen="" frameborder="0"></iframe>');
+			str = str.replace(lien_video_a_lire,'<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="'+lien_video_a_lire.replace("watch?v=", "v/")+'" frameborder="0" "></iframe></div>');
 		}else{
 			str.replace(lien_video_a_lire," ");
 		}	
@@ -120,7 +120,7 @@ index.chercher_balise_img = function(str){
 	if(str.indexOf("[img]")!=(-1) && str.indexOf("[/img]")!=(-1)){
 		var lien_image_a_afficher = str.substring(str.indexOf("[img]")+5, str.indexOf("[/img]"));
 		if(lien_image_a_afficher.length>10){
-			str = str.replace(lien_image_a_afficher,'<a  href="'+lien_image_a_afficher+'" TARGET="_new"><img src="'+lien_image_a_afficher+'" alt="image" style="width:25%;height:25%;"></a>');
+			str = str.replace(lien_image_a_afficher,'<a  href="'+lien_image_a_afficher+'" TARGET="_new"><img src="'+lien_image_a_afficher+'" alt="image" style="width:50%;height:50%;"></a>');
 		}else{
 			str = str.replace(lien_image_a_afficher," ");
 		}
@@ -317,11 +317,11 @@ function $_GET(key,default_) {
  	d = parseInt(d);
 	d = new Date(d);
   	var month = (d.getMonth() < 10) ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1);
-    var day = (d.getDate() < 10) ? "0" + d.getMonth() : d.getMonth();
+    var day = (d.getDate() < 10) ? "0" + d.getDate() : d.getDate();
     var hour = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
     var minute = (d.getMinutes() < 10) ? "0" + d.getMinutes() : d.getMinutes();
     var second = (d.getSeconds() < 10) ? "0" + d.getSeconds() : d.getSeconds();
-    return d.getDate() + "." + month + "." + d.getFullYear() + " at " + hour + ":" + minute + ":" + second;
+    return day + "." + month + "." + d.getFullYear() + " at " + hour + ":" + minute + ":" + second;
 };
 /**
 function qui retourne le text avec les emoticons
