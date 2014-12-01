@@ -3,7 +3,7 @@ var data = {}; // obj contenant les données à transmettre à la methode GET
 var obj_traitement={}; // obj contenant les fonctions de traitement de données deçu dans la callback
 var contenuHTML={}; // obj utilisé pour contenir le contenu de nos éléments html pour l'affichage du gif chargement
 
-data.id_log = "?id_log=serie_1_groupe_6_katari"; // Pour afficher notre nom dans les logs
+data.id_log = "?id_log=serie_1_groupe_3"; // Pour afficher notre nom dans les logs
 data.arguments_=""; // Par default : aucun arguments
 
 top3array = new Array();
