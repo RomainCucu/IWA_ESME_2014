@@ -33,7 +33,7 @@ var snow = {
 			};
 
 			flake.html.style.position = "absolute";
-			flake.html.style.zIndex = 100;
+			flake.html.style.zIndex = 2000;
 			flake.html.style.top = flake.y + "px";
 			flake.html.style.left = flake.x + "px";
 			flake.html.style.fontSize = flake.size + "px";
