@@ -13,13 +13,7 @@ window.onload = function(){
 }
 
 index.start=function(){
-	/*window.setTimeout(function(){window.location.reload();},10000);
-	setInterval(trolling,100);
-	function trolling(){
-		index.new_thread("je te troll, enfoiré");
-	};*/
 	index.get_threads();
-	index.btn_search_threads();
 	index.btn_new_thread();
 	index.btn_wrapper();
 };
@@ -98,15 +92,6 @@ index.btn_wrapper = function(){
     	 
     	 
     };
-};
-index.btn_search_threads = function(){
-	document.getElementById("submit_recherche_threads").onsubmit = function(event) {
-		event.preventDefault();//à laisser
-		var input_user_search_thread = document.getElementById("input_search_thread").value;
-		if(("1417020259481".toLowerCase().indexOf(input_user_search_thread.toLowerCase())> -1) || similar("1417020259481".toLowerCase(),input_user_search_thread.toLowerCase())> 50){
-				alert("Find !");
-		}		
-	}
 };
 
 /**
