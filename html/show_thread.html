@@ -64,20 +64,20 @@
 					<!-- AFFICHAGE BOXE REPONDRE-->
 					<div class="well">
 					<h1 class="text-primary">Answer:</h1>
-					<form role="form" class="">
+					<form role="form" class="" id="post_message_btn">
 					  <div class="form-group ">
 					    <label for="input_author" class="text-primary">Author:</label>
-					    <input maxlength="20" type="text" class=" form-control" id="input_author" placeholder="Enter your name">
+					    <input maxlength="20" type="text" class=" form-control" id="input_author" placeholder="Enter your name" required>
 					  </div>
-					  <div class="form-group">
+					  <div class="form-group" >
 					    <label for="input_message" class="text-primary">Message:</label>
 					    <br>
 					    <button type="button" class="btn btn-default btn-xs " id="btn_ajout_video">[vid]</button>
 					    <button type="button" class="btn btn-default btn-xs " id="btn_ajout_image">[img]</button>
-					    <textarea maxlength="500" class="form-control" rows="3" id="input_message" placeholder="Enter your message" onkeydown="document.getElementById('nombre_de_caract_restant').innerHTML='Il reste '+(500-this.value.length)+' caractères'"></textarea>
+					    <textarea maxlength="500" class="form-control" rows="3" id="input_message" placeholder="Enter your message" onkeydown="document.getElementById('nombre_de_caract_restant').innerHTML='Il reste '+(500-this.value.length)+' caractères'" required ></textarea>
 					     <footer id="nombre_de_caract_restant" class="text-primary">Il reste 500 caractères</footer>
 					  </div>					  
-					  <button id="post_message_btn" type="submit" class="btn btn-primary">Submit</button>
+					  <button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 					</div>
 				</div><!-- div col md 4 -->

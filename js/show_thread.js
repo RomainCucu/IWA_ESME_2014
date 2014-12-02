@@ -208,12 +208,14 @@ index.redirection_pagination_panel = function(nb){
 BOUTON la partie poster un message
 */
 index.btn_post_message =function(){
-	document.getElementById("post_message_btn").onclick = function(event) {
+	document.getElementById("post_message_btn").onsubmit = function(event) {
+		event.preventDefault();
 		var author = "[author]"+document.getElementById('input_author').value+"[/author]";
 		var message = document.getElementById('input_message').value;
 		message += "[date]"+(new Date()).valueOf()+"[/date]";
-		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,""+author+message)
-		event.preventDefault();
+		message+=author;
+		if(message.length>=1) index.reply_to_thread(data.id_thread_traiter,""+message)
+		
 	};
 };
 index.btn_ajouter_video =function(){
